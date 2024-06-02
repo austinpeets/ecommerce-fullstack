@@ -8,9 +8,9 @@ app.get('/users/:id/shopping-cart', (req, res) => {
 })
 
 app.patch('/users/user:id/shopping-cart/products/product:id', (req, res) =>{
-    console.log('')
+    console.log('Successfully edited cart')
 })
 
 app.delete('/user/user:id/shopping-cart/products/product:id', (req, res) => {
-    console.log('')
+    console.log('Successfully deleted item')
 })
