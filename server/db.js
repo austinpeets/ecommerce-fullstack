@@ -1,47 +1,40 @@
 const pg = require('pg')
-const { v4: uuidv4 } = require('uuid');
 const client = new pg.Client(process.env.DATABASE_URL || 'postgres://localhost/ecommerce_backend');
+const products = require('/Users/austinpitts/Documents/Coursework/ecommerce-capstone/server/data/mock-products.js')
 
+const createTable = `
+    CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price NUMERIC(10, 2) NOT NULL,
+    stock INTEGER NOT NULL,
+    description TEXT,
+    img VARCHAR(255),
+    category VARCHAR(100)
+);`
 
-// const createTables = async() => {
-//     const SQL = `
-//     DROP TABLE IF EXISTS user;
-//     DROP TABLE IF EXISTS admin;
-//     DROP TABLE IF EXISTS shopping_cart;
-//     DROP TABLE IF EXISTS cart_product;
-//     DROP TABLE IF EXISTS product;
-//     CREATE TABLE user(
-//         id UUID PRIMARY KEY,
-//         username VARCHAR NOT NULL,
-//         password TEXT NOT NULL,
-//         firstname VARCHAR NOT NULL,
-//         lastname VARCHAR NOT NULL);
-    
-//     CREATE TABLE admin(
-//         id UUID PRIMARY KEY,
-//         username VARCHAR NOT NULL);
+client.query(createTable)
 
-//     CREATE TABLE shopping_cart(
-//         id UUID PRIMARY KEY,
-//         quantity INTEGER NOT NULL,
-//         price INTEGER NOT NULL,
-//         total_price INTEGER NOT NULL,
-//     )
+const seedDataBase = async () => {
+    try {
+        await client.connect()
+        for (const product of products) {
+            const query = `
+            INSERT INTO products (name, price, stock, description, img, category)
+            VALUES ($1, $2, $3, $4, $5, $6)
+            RETURNING *
+            `;
+        
+        const values = [product.name, product.price, product.stock, product.description, product.img, product.category]
+        await client.query(query, values)
+    }
+    console.log('Data inserted successfully')
+} catch (err) {
+    console.error('Error inserting data', err)
+} finally {
+    client.end
+}
+}
 
-//     CREATE TABLE cart_product(
-//         id UUID PRIMARY KEY,
-//         quantity INTEGER NOT NULL,
-//         price INTEGER NOT NULL,
-//     )
-
-//     CREATE TABLE product(
-//         id UUID PRIMARY KEY,
-//         name VARCHAR NOT NULL,
-//         description TEXT NOT NULL,
-//         quantity INTEGER NOT NULL,
-//         price INTEGER NOT NULL,
-//     );
-//     `
-// }
-
+seedDataBase()
 
