@@ -6,7 +6,7 @@ app.get('/', (req, res) => {
     res.send('Hello world')
 })
 
-const productRoute = require('./routes/product.js')
+const productRoute = require('../server/routes/product.js')
 app.use('/products', productRoute)
 
 app.listen(port, () =>{

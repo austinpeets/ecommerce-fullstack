@@ -1,6 +1,20 @@
 const pg = require('pg')
 const client = new pg.Client(process.env.DATABASE_URL || 'postgres://localhost/ecommerce_backend');
 const products = require('/Users/austinpitts/Documents/Coursework/ecommerce-capstone/server/data/mock-products.js')
+const { Pool } = require('pg')
+require('dotenv').config()
+
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+})
+
+const dropTable = `DROP TABLE IF EXISTS products;`
+
+client.query(dropTable)
 
 const createTable = `
     CREATE TABLE products (
@@ -37,5 +51,7 @@ const seedDataBase = async () => {
 }
 
 seedDataBase()
+
+module.exports = pool
 
 
