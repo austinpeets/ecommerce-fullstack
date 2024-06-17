@@ -8,6 +8,7 @@ const pool = require('/Users/austinpitts/Documents/Coursework/ecommerce-capstone
 
 app.use( express.json() )
 
+
 router.get('/', async (req, res) => {
     try {
         const client = await pool.connect()
