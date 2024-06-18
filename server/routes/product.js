@@ -3,7 +3,7 @@ const client = new pg.Client(process.env.DATABASE_URL || 'postgres://localhost/e
 const express = require('express')
 const router = express.Router()
 const app = express()
-const pool = require('/Users/austinpitts/Documents/Coursework/ecommerce-capstone/server/db.js')
+const pool = require('../db.js')
 
 
 app.use( express.json() )
