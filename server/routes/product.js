@@ -7,6 +7,8 @@ const pool = require('../db.js')
 
 
 app.use( express.json() )
+const productRoute = require('./db')
+app.use('/products', productRoute)
 
 
 router.get('/', async (req, res) => {
