@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import Navbar from './components/navbar/navbar';
+import { useState, useEffect } from 'react'
+import Navbar from './components/navbar/navbar.jsx'
+// import Details from './components/Details'
+// import Home from './components/Home'
+import { Routes, Route } from "react-router-dom"
+// import { Link } from "react-router-dom"
+import './App.css'
 
 function App() {
-
-  const [backendData, setBackendData] = useState ([{}])
-
-  useEffect(() => {
-    fetch("/api").then(
-      response => response.json()
-    ).then(
-      data => {
-        setBackendData(data)
-      }
-    )
-  }, [])
+  const [count, setCount] = useState(0)
 
   return (
-    <div>
-      <Navbar/>
-    </div>
-  );
+    <>
+      <div id="container">
+        <Navbar/>
+
+        <div id="main-section">
+          <Routes>
+            {/* <Route path="/home" element={<Home />}></Route>
+            <Route path="/player/:id"element={<Details />}></Route>
+            <Route path="/createplayerform" element={<CreatePlayer />}></Route> */}
+          </Routes>
+        </div>
+      </div>
+    </>
+  )
 }
 
-export default App;
+export default App
