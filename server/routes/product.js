@@ -3,7 +3,7 @@ const client = new pg.Client(process.env.DATABASE_URL || 'postgres://localhost/e
 const express = require('express')
 const router = express.Router()
 const app = express()
-const pool = require('../db.js')
+const pool = require('../db')
 
 
 app.use( express.json() )
@@ -11,9 +11,7 @@ app.use( express.json() )
 
 router.get('/', async (req, res) => {
     try {
-        const client = await pool.connect()
-        const result = await client.query('SELECT * FROM products');
-        client.release()
+        const result = await pool.query('SELECT * FROM products');
         const products = result.rows;
         res.json(products);
       } catch (err) {
@@ -29,9 +27,7 @@ router.get('/:id', async (req, res) => {
     const productID = req.params.id;
     
     try {
-       const client =  await pool.connect();
-        const result = await client.query('SELECT * FROM products WHERE id = $1', [productID]);
-        client.release()
+        const result = await pool.query('SELECT * FROM products WHERE id = $1', [productID]);
         if (result.rows.length === 0) {
             res.status(404).json( { message: 'Product not found'} )
         } else {
