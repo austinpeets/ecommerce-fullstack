@@ -11,7 +11,7 @@ const Navbar = () => {
                 <p>Shopper</p>
             </div>
             <ul className="nav-menu">
-                <li>Multivitamins</li>
+                <li>Multivitamins<hr/></li>
                 <li>Fish Oil & Omegas</li>
                 <li>Protein & Fitness</li>
                 <li>Weight Management</li>
@@ -26,6 +26,7 @@ const Navbar = () => {
             <div classname='nav-login-cart'>
                 <button>Login</button>
                 <img src={cartIcon} alt="" />
+                <div className="nav-cart-count">0</div>
             </div>
         </div>
     )
