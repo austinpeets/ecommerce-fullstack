@@ -25,10 +25,10 @@
     font-weight: 500;
 }
 
-.nav-menu li{
+.nav-menu li {
     display: flex;
-    flex-diretion: center;
-    align itmes: center;
+    flex-direction: center;
+    align-items: center;
     justify-content: center;
     gap: 3px;
     cursor: pointer;
@@ -42,10 +42,17 @@
     background: #ff4141;
 }
 
-.nav-login cart{
+.nav-login-cart{
     display: flex;
     align-items: center;
     gap: 45px;
+}
+
+.nav-login-cart img{
+    display: flex;
+    align-items: center;
+    width: 50px;
+    height: 50px;
 }
 
 .nav-login-cart button{
