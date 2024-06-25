@@ -1,37 +1,59 @@
 const express = require('express')
+const pool = require('../db')
 const app = express()
+const router = express.Router()
 
 app.use( express.json() )
 
-//Get logged in user description(firstname, lastname)
-app.get('/users/information', (req, res) => {
-    console.log('Successfully pulled user info')
-    // res.json(users)
+
+router.get('/', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM users');
+        const users = result.rows;
+        res.json(users)
+    } catch(err) {
+        console.error('Error fetching users:', err);
+        res.status(500).json({ message: 'Internal Server Error'})
+    }
+   
 })
 
-//Get logged in user shopping cart
-app.get('/users/shopping-cart', (req, res) => {
-    console.log('Successfully pulled users cart')
-})
+router.get('/:id', async (req, res) => {
+    const userID = req.params.id;
 
-//Post logged in user 
-app.post('/login', (req, res) => {
-    console.log('Successfully logged in as user')
+    try {
+        const result = await pool.query('SELECT * FROM users WHERE id = $1', [userID]);
+        if (result.rows.length === 0) {
+            res.status(404).json({ message: 'User not found'})
+        } else {
+            res.json(result.rows[0])
+        }
+    } catch(err) {
+        console.error('Error fetching user by id', err);
+        res.status(500).json({ message: 'Internal Server Error'})
+    }
 })
+    
 
-app.post('/users', (req, res) => {
-    console.log('Successfully registered as user')
-})
+// //Post logged in user 
+// app.post('/login', (req, res) => {
+//     console.log('Successfully logged in as user')
+// })
 
-app.delete('/users/:id', (req, res) => {
-    console.log("successfully deleted user")
-})
+// app.post('/users', (req, res) => {
+//     console.log('Successfully registered as user')
+// })
 
-app.patch('/users/:id', (req, res) => {
-    console.log('Successfully changed user')
-})
+// app.delete('/users/:id', (req, res) => {
+//     console.log("successfully deleted user")
+// })
 
-app.post('/user/:id/products', (req, res) => {
-    console.log('Successfully posted a product')
-})
+// app.patch('/users/:id', (req, res) => {
+//     console.log('Successfully changed user')
+// })
 
+// app.post('/user/:id/products', (req, res) => {
+//     console.log('Successfully posted a product')
+// })
+
+module.exports = router

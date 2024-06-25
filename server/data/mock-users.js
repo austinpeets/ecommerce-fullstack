@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-const usersData = [
+const users = [
   {
     id: 1,
     name: "John Doe",
@@ -33,4 +33,4 @@ const usersData = [
   }
 ];
 
-module.exports = usersData;
+module.exports = users;

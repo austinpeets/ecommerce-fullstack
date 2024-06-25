@@ -2,7 +2,6 @@ const pool = require("./db");
 const products = require("./data/mock-products");
 const users = require("./data/mock-users");
 
-
 const dropTables = async () => {
   const dropTableQuery = `
     DROP TABLE IF EXISTS products;
@@ -18,10 +17,7 @@ const dropTables = async () => {
   }
 };
 
-
 const createTable = async () => {
-
-
   const createTable = `
     CREATE TABLE IF NOT EXISTS products (
     id SERIAL PRIMARY KEY,
@@ -31,7 +27,14 @@ const createTable = async () => {
     description TEXT,
     img VARCHAR(255),
     category VARCHAR(100)
-);`;
+    );
+    
+    CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+    );`;
 
   try {
     await pool.query(createTable);
@@ -49,10 +52,10 @@ const seedDataBase = async () => {
     await createTable();
     for (const product of products) {
       const query = `
-              INSERT INTO products (name, price, stock, description, img, category)
-              VALUES ($1, $2, $3, $4, $5, $6)
-              RETURNING *
-              `;
+        INSERT INTO products (name, price, stock, description, img, category)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING *
+        `;
 
       const values = [
         product.name,
@@ -62,8 +65,22 @@ const seedDataBase = async () => {
         product.img,
         product.category,
       ];
-    await pool.query(query, values);
+      await pool.query(query, values);
     }
+
+    for (const user of users) {
+      const userquery = `
+      INSERT INTO users (name, email, password)
+      VALUES ($1, $2, $3)
+      RETURNING *
+      `;
+
+      const values = [user.name, user.email, user.password];
+      const results = await pool.query(userquery, values);
+      console.log(results)
+      console.log("Inserted user:", results.rows[0]);
+    }
+
     console.log("Data inserted successfully");
   } catch (err) {
     console.error("Error inserting data", err);
@@ -85,4 +102,4 @@ const runSeed = async () => {
 
 runSeed();
 
-module.exports = { seedDataBase, createTable, dropTables};
+module.exports = { seedDataBase, createTable, dropTables };
