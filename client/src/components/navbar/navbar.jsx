@@ -13,10 +13,9 @@ const Navbar = () => {
                 <p>VitalVibes</p>
             </div>
             <ul className='nav-menu'>
-                <li onClick={()=>{setMenu("multivitamins")}}>Multivitamins{menu==="multivitamins"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("protein & fitness")}}>Fitness{menu==="protein & fitness"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("herbs & natural remedies")}}>Natural Remedies{menu==="herbs & natural remedies"?<hr/>:<></>}</li>
-                <li onClick={()=>{setMenu("pet supplements")}}>Pets{menu==="pet supplements"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("shop")}}>Shop{menu==="shop"?<hr/>:<></>}</li>
+                <li onClick={()=>{setMenu("account")}}>Account{menu==="account"?<hr/>:<></>}</li>
+                
         
             </ul>
             <div className='nav-login-cart'>
