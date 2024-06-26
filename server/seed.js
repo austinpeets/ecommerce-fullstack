@@ -1,6 +1,7 @@
 const pool = require("./db");
 const products = require("./data/mock-products");
 const users = require("./data/mock-users");
+const bcrypt = require('bcrypt')
 
 const dropTables = async () => {
   const dropTableQuery = `
@@ -69,13 +70,14 @@ const seedDataBase = async () => {
     }
 
     for (const user of users) {
+      const hashedPassword = await bcrypt.hash(user.password, 10);
       const userquery = `
       INSERT INTO users (name, email, password)
       VALUES ($1, $2, $3)
       RETURNING *
       `;
 
-      const values = [user.name, user.email, user.password];
+      const values = [user.name, user.email, hashedPassword];
       const results = await pool.query(userquery, values);
       console.log(results)
       console.log("Inserted user:", results.rows[0]);
