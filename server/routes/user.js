@@ -2,6 +2,7 @@ const express = require('express')
 const pool = require('../db')
 const app = express()
 const router = express.Router()
+const bcrypt = require('bcrypt')
 
 app.use( express.json() )
 
@@ -35,25 +36,31 @@ router.get('/:id', async (req, res) => {
 })
     
 
-// //Post logged in user 
-// app.post('/login', (req, res) => {
-//     console.log('Successfully logged in as user')
-// })
+router.post('/register', async (req, res) => {
+    const {name, email, password} = req.body
 
-// app.post('/users', (req, res) => {
-//     console.log('Successfully registered as user')
-// })
+    if(!name || !email || !password) {
+        return res.status(400).json({ message: "Please provide all required fields"})
+    }
 
-// app.delete('/users/:id', (req, res) => {
-//     console.log("successfully deleted user")
-// })
+    try {
+        const hashedPassword = await bcrypt.hash(password, 12)
 
-// app.patch('/users/:id', (req, res) => {
-//     console.log('Successfully changed user')
-// })
+        const query = `
+        INSERT INTO users (name, email, password)
+        VALUES ($1, $2, $3)
+        RETURNING id, name, email
+        `;
+        
+        const values = [name, email, hashedPassword];
+        const result = await pool.query(query, values);
+        const newUser = result.rows[0];
+        res.status(201).json({ message: 'User registered successfully', user: newUser});
+    } catch(err) {
+        console.error('Error registering user', err)
+        res.status(500).json({ message: 'Internal Server Error'})
+    }
 
-// app.post('/user/:id/products', (req, res) => {
-//     console.log('Successfully posted a product')
-// })
+})
 
-module.exports = router
+module.exports = router;

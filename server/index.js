@@ -3,7 +3,7 @@ const app = express()
 const productRoute = require('../server/routes/product')
 const userRoute = require('../server/routes/user')
 
-
+app.use(express.json()) 
 // const port = 8000
 
 app.get('/', (req, res) => {
