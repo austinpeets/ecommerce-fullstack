@@ -1,22 +1,24 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import Navbar from './components/navbar/navbar.jsx'
+import Navigations from './components/Navigations'
+import Products from './components/Products'
 import { Routes, Route } from "react-router-dom"
 // import { Link } from "react-router-dom"
 import './App.css'
 
 function App() {
   return (
+    
     <>
       <div id="container">
-        <Navbar/>
+        <Navigations/>
 
         <div id="main-section">
-          {/* <Routes>
-            {/* <Route path="/home" element={<Home />}></Route>
-            <Route path="/player/:id"element={<Details />}></Route>
-            <Route path="/createplayerform" element={<CreatePlayer />}></Route> */}
-          {/* </Routes> */}
+          <Routes>
+            {/* <Route path="/home" element={<Home />}></Route> */}
+            {/* <Route path="/product/:id"element={<Product />}></Route>  */}
+            <Route path="/products" element={<Products />}></Route>
+          </Routes>/
         </div>
       </div>
     </>

@@ -2,15 +2,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Product = () => {
+const Products = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     async function fetchAllProducts() {
-      const response = await fetch("localhost:8000/products");
+      const response = await fetch("http://localhost:8000/products");
       const data = await response.json();
       console.log(data);
-      setProducts(data.products);
+      setProducts(data);
     }
     fetchAllProducts();
   }, []);
@@ -24,6 +24,7 @@ const Product = () => {
           <li key={product.id}>
             <Link to={`/singleproduct/${product.id}`}>
               <h4 className="productName">{product.name}</h4>
+              <img src={product.img}/>
             </Link>
           </li>
         ))}
@@ -32,4 +33,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Products;
