@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import Login from './components/Login'
 import Navigations from './components/Navigations'
 import Products from './components/Products'
 import { Routes, Route } from "react-router-dom"
@@ -18,6 +19,7 @@ function App() {
             {/* <Route path="/home" element={<Home />}></Route> */}
             {/* <Route path="/product/:id"element={<Product />}></Route>  */}
             <Route path="/products" element={<Products />}></Route>
+            <Route path="/login" element={<Login />}></Route>
           </Routes>/
         </div>
       </div>

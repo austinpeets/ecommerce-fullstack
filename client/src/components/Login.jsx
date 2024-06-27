@@ -8,7 +8,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+// import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -25,7 +25,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        VitalVibes
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -59,7 +59,7 @@ export default function loginForm({ setToken }) {
     const loginForm = { email, password };
 
     try {
-      const response = await fetch("localhost:8000/products", {
+      const response = await fetch("http://localhost:8000/user", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -91,7 +91,7 @@ export default function loginForm({ setToken }) {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
+            {/* <LockOutlinedIcon /> */}
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in

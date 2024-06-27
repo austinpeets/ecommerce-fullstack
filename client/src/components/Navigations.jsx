@@ -5,9 +5,9 @@ function Navigations() {
 return(
     <div id="container">
         <div id="navigations">
-            {/* <Link to={"/login"}>Login</Link>
+            <Link to={"/login"}>Login</Link>
             <br />
-            <Link to={"/register"}>Register</Link>
+            {/* <Link to={"/register"}>Register</Link>
             <br />
             <Link to={"/account"}>Account</Link>
             Make visible only after logged in */}
