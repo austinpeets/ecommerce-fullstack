@@ -1,7 +1,9 @@
 const pool = require("./db");
 const products = require("./data/mock-products");
 const users = require("./data/mock-users");
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const JWT = process.env.JWT || 'shhh';
 
 const dropTables = async () => {
   const dropTableQuery = `
@@ -70,14 +72,13 @@ const seedDataBase = async () => {
     }
 
     for (const user of users) {
-      const hashedPassword = await bcrypt.hash(user.password, 10);
       const userquery = `
       INSERT INTO users (name, email, password)
       VALUES ($1, $2, $3)
       RETURNING *
       `;
 
-      const values = [user.name, user.email, hashedPassword];
+      const values = [user.name, user.email, user.password];
       const results = await pool.query(userquery, values);
       console.log(results)
       console.log("Inserted user:", results.rows[0]);
@@ -89,11 +90,37 @@ const seedDataBase = async () => {
   }
 };
 
+const authenticate = async({ email, password })=> {
+  const SQL = `
+    SELECT * FROM users WHERE email = $1
+  `;
+  const response = await pool.query(SQL, [email]);
+  const userFound = response.rows.length > 0
+  let passwordMatches = false
+
+  if(userFound){
+    passwordMatches = await bcrypt.compare(password, response.rows[0].password)
+  }
+
+  console.log({response, password, userFound, passwordMatches});
+
+  if(!userFound || !passwordMatches){
+    const error = Error('not authorized');
+    error.status = 401;
+    throw error;
+  }
+
+  const token = jwt.sign({ id: response.rows[0].id}, JWT);
+  return { token };
+};
+
+
 const runSeed = async () => {
   try {
     await dropTables();
     await createTable();
     await seedDataBase();
+   
   } catch (err) {
     console.error("Error running seed script:", err);
   } finally {
@@ -102,6 +129,6 @@ const runSeed = async () => {
   }
 };
 
-runSeed();
+// runSeed();
 
-module.exports = { seedDataBase, createTable, dropTables };
+module.exports = { seedDataBase, createTable, dropTables, authenticate};
