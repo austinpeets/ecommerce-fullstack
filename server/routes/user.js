@@ -3,7 +3,7 @@ const pool = require('../db')
 const app = express()
 const router = express.Router()
 const bcrypt = require('bcrypt')
-
+const { authenticate } = require('../seed')
 app.use( express.json() )
 
 
@@ -34,6 +34,15 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error'})
     }
 })
+
+router.post('/login', async (req, res, next) => {
+    try{
+        res.send(await authenticate(req.body));
+    }
+    catch(err) {
+        next(err)
+    }
+});
     
 
 router.post('/register', async (req, res) => {
