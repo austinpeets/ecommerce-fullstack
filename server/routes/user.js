@@ -45,9 +45,9 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, lastname, email, password } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !lastname || !email || !password) {
     return res
       .status(400)
       .json({ message: "Please provide all required fields" });
