@@ -90,6 +90,20 @@ const seedDataBase = async () => {
   }
 };
 
+const createUser = async({ name, email, password})=> {
+  const SQL = `
+    INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING *
+  `;
+  const response = await pool.query(SQL, [ name, email, await bcrypt.hash(password, 5)]);
+  return response.rows[0];
+};
+
+const createUserAndGenerateToken = async({ name, email, password})=> {
+  const user = await createUser({ name, email, password });
+  const token = jwt.sign({ id: user.id }, JWT);
+  return { token };
+};
+
 const authenticate = async({ email, password })=> {
   const SQL = `
     SELECT * FROM users WHERE email = $1
@@ -102,7 +116,7 @@ const authenticate = async({ email, password })=> {
     passwordMatches = await bcrypt.compare(password, response.rows[0].password)
   }
 
-  console.log({response, password, userFound, passwordMatches});
+
 
   if(!userFound || !passwordMatches){
     const error = Error('not authorized');
@@ -131,4 +145,4 @@ const runSeed = async () => {
 
 // runSeed();
 
-module.exports = { seedDataBase, createTable, dropTables, authenticate};
+module.exports = { seedDataBase, createTable, dropTables, authenticate,createUserAndGenerateToken };
