@@ -35,6 +35,7 @@ const createTable = async () => {
     CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+    lastname VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
     );`;
@@ -73,12 +74,12 @@ const seedDataBase = async () => {
 
     for (const user of users) {
       const userquery = `
-      INSERT INTO users (name, email, password)
-      VALUES ($1, $2, $3)
+      INSERT INTO users (name, lastname, email, password)
+      VALUES ($1, $2, $3, $4)
       RETURNING *
       `;
 
-      const values = [user.name, user.email, user.password];
+      const values = [user.name, user.lastname, user.email, user.password];
       const results = await pool.query(userquery, values);
       console.log(results)
       console.log("Inserted user:", results.rows[0]);
@@ -90,16 +91,16 @@ const seedDataBase = async () => {
   }
 };
 
-const createUser = async({ name, email, password})=> {
+const createUser = async({ name, lastname, email, password})=> {
   const SQL = `
-    INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING *
+    INSERT INTO users(name, lastname, email, password) VALUES($1, $2, $3, $4) RETURNING *
   `;
-  const response = await pool.query(SQL, [ name, email, await bcrypt.hash(password, 5)]);
+  const response = await pool.query(SQL, [ name, lastname, email, await bcrypt.hash(password, 5)]);
   return response.rows[0];
 };
 
-const createUserAndGenerateToken = async({ name, email, password})=> {
-  const user = await createUser({ name, email, password });
+const createUserAndGenerateToken = async({ name, lastname, email, password})=> {
+  const user = await createUser({ name, lastname, email, password });
   const token = jwt.sign({ id: user.id }, JWT);
   return { token };
 };
