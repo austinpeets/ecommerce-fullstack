@@ -1,16 +1,26 @@
 const express = require('express')
-const app = express()
+const router = express.Router()
+const { addItemToCart } = require('../seed'); 
+const { authenticate } = require('../seed'); 
 
-app.use( express.json() )
-
-app.get('/users/:id/shopping-cart', (req, res) => {
-    console.log('')
-})
-
-app.patch('/users/user:id/shopping-cart/products/product:id', (req, res) =>{
-    console.log('Successfully edited cart')
-})
-
-app.delete('/user/user:id/shopping-cart/products/product:id', (req, res) => {
-    console.log('Successfully deleted item')
-})
+router.post('/cart', authenticate, async (req, res) => {
+    const { productId, quantity } = req.body;
+    const userId = req.user.id;
+  
+    if (!productId || !quantity) {
+      return res.status(400).json({ message: 'Product ID and quantity are required' });
+    }
+  
+    try {
+      const cartItem = await addItemToCart(userId, productId, quantity);
+      return res.status(201).json({
+        message: 'Product added to cart successfully',
+        cartItem,
+      });
+    } catch (err) {
+      console.error('Error adding item to cart:', err);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+  
+  module.exports = router;
