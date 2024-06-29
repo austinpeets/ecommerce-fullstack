@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function singleProduct({ token }) {
-    const { productID } = useParams();
+    const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         async function singleProductDetails() {
             const response = await fetch(
-                `http://localhost:8000/products/${productID}`
+                `http://localhost:8000/products/${id}`
             );
             const data = await response.json();
             setProduct(data);

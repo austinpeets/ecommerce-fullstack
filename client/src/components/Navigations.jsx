@@ -119,6 +119,7 @@ function Navigations() {
             Make visible only after logged in */}
         {/* <br /> */}
         <Link to={"/products"}>Products</Link>
+        <Link to={"/cart"}>Cart</Link>
       </div>
     </div>
   );
