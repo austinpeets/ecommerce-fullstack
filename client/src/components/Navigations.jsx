@@ -1,7 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-// import * as React from 'react';
+import * as React from 'react';
+
+// MUI NAVBAR
+
 // import { styled, alpha } from '@mui/material/styles';
 // import AppBar from '@mui/material/AppBar';
 // import Box from '@mui/material/Box';
@@ -76,6 +79,15 @@ import { Link } from "react-router-dom";
 //           >
 //             MUI
 //           </Typography>
+
+// MUI SHOPPING CART
+
+{/* <IconButton aria-label="cart">
+  <StyledBadge badgeContent={4} color="secondary">
+    <ShoppingCartIcon />
+  </StyledBadge>
+</IconButton> */}
+
 //           <Search>
 //             <SearchIconWrapper>
 //               <SearchIcon />
@@ -90,6 +102,9 @@ import { Link } from "react-router-dom";
 //     </Box>
 //   );
 // }
+
+
+
 
 
 function Navigations() {

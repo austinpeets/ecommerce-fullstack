@@ -7,11 +7,13 @@ import { useState } from 'react'
 // import { Link } from "react-router-dom"
 import './App.css'
 import Register from './components/Register'
-import { setToken } from './components/Register'
+// import { setToken } from './components/Register'
 
 function App() {
+  const [token, setToken] = useState(null);
+  
   return (
-    
+
     <>
       <div id="container">
         <Navigations/>
