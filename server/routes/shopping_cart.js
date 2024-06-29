@@ -3,7 +3,7 @@ const router = express.Router()
 const { addItemToCart } = require('../seed'); 
 const { authenticate } = require('../seed'); 
 
-router.post('/cart', authenticate, async (req, res) => {
+router.post('/', authenticate, async (req, res) => {
     const { productId, quantity } = req.body;
     const userId = req.user.id;
   

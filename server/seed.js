@@ -160,18 +160,7 @@ const addItemToCart = async (userId, productId, quantity = 1) => {
   return result.rows[0];
 };
 
-const runSeed = async () => {
-  try {
-    // await dropTables();
-    await createTable();
-    await seedDataBase();
-  } catch (err) {
-    console.error("Error running seed script:", err);
-  } finally {
-    await pool.end();
-    console.log("Pool ended, seeding complete.");
-  }
-};
+
 
 
 module.exports = {
@@ -180,6 +169,5 @@ module.exports = {
   dropTables,
   authenticate,
   createUserAndGenerateToken,
-  addItemToCart,
-  runSeed
+  addItemToCart
 };

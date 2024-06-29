@@ -10,7 +10,7 @@ export default function singleProduct({ token }) {
     useEffect(() => {
         async function singleProductDetails() {
             const response = await fetch(
-                `http://localhost:8000/products/${id}`
+                `http://localhost:8000/api/products/${id}`
             );
             const data = await response.json();
             setProduct(data);

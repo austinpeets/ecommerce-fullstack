@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 const productRoute = require("../server/routes/product");
 const userRoute = require("../server/routes/user");
-const shopping_cart = require("../server/routes/shopping_cart")
-const {runSeed} = require("./seed")
+const shopping_cart = require("../server/routes/shopping_cart");
+const runSeed = require("./runseed");
 const cors = require("cors");
 
 app.use(cors());
@@ -14,12 +14,12 @@ app.get("/", (req, res) => {
   res.send("Hello world");
 });
 
-app.use("/products", productRoute);
-app.use("/user", userRoute);
-app.use("/cart", shopping_cart);
+app.use("/api/products", productRoute);
+app.use("/api/user", userRoute);
+app.use("/api/cart", shopping_cart);
 
 const init = async () => {
-    //runSeed function
+  //runSeed function
   const port = (process.env.PORT = 8000);
 
   app.listen(port, () => {
@@ -27,17 +27,16 @@ const init = async () => {
   });
 };
 
-if (process.env.RUN_SEED === 'true') {
-    runSeed()
-      .then(() => {
-        console.log("Database seeded successfully");
-        init();
-      })
-      .catch((err) => {
-        console.error("Error seeding database:", err);
-        process.exit(1); // Exit the process with an error code
-      });
-  } else {
-    init();
-  }
-  
+if (process.env.RUN_SEED === "true") {
+  runSeed()
+    .then(() => {
+      console.log("Database seeded successfully");
+      init();
+    })
+    .catch((err) => {
+      console.error("Error seeding database:", err);
+      process.exit(1);
+    });
+} else {
+  init();
+}

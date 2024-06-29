@@ -82,11 +82,11 @@ import * as React from 'react';
 
 // MUI SHOPPING CART
 
-{/* <IconButton aria-label="cart">
-  <StyledBadge badgeContent={4} color="secondary">
-    <ShoppingCartIcon />
-  </StyledBadge>
-</IconButton> */}
+//  <IconButton aria-label="cart">
+//  <StyledBadge badgeContent={4} color="secondary">
+//  <ShoppingCartIcon />
+//  </StyledBadge>
+//  </IconButton>
 
 //           <Search>
 //             <SearchIconWrapper>
@@ -111,15 +111,16 @@ function Navigations() {
   return (
     <div id="container">
       <div id="navigations">
-        <Link to={"/login"}>Login</Link>
+        <Link to={"/api/login"}>Login</Link>
         <br />
-        <Link to={"/register"}>Register</Link>
+        <Link to={"/api/register"}>Register</Link>
         <br />
         {/* <Link to={"/account"}>Account</Link>
             Make visible only after logged in */}
         {/* <br /> */}
-        <Link to={"/products"}>Products</Link>
-        <Link to={"/cart"}>Cart</Link>
+        <Link to={"/api/products"}>Products</Link>
+        <br />
+        <Link to={"/api/cart"}>Cart</Link>
       </div>
     </div>
   );

@@ -59,7 +59,7 @@ export default function loginForm({ setToken }) {
     const loginForm = { email, password };
 
     try {
-      const response = await fetch("http://localhost:8000/user/login", {
+      const response = await fetch("http://localhost:8000/api/user/login", {
         method: "POST",
         headers: {
           Accept: "application/json",

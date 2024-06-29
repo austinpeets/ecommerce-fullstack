@@ -7,7 +7,7 @@ const Products = () => {
 
   useEffect(() => {
     async function fetchAllProducts() {
-      const response = await fetch("http://localhost:8000/products");
+      const response = await fetch("http://localhost:8000/api/products");
       const data = await response.json();
       console.log(data);
       setProducts(data);
@@ -22,7 +22,7 @@ const Products = () => {
       <ul className="productList">
         {products.map((product) => (
           <li key={product.id}>
-            <Link to={`/products/${product.id}`}>
+            <Link to={`/api/products/${product.id}`}>
               <h4 className="productName">{product.name}</h4>
               <img src={product.img} />
             </Link>
