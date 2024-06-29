@@ -2,7 +2,6 @@ const express = require("express");
 const pool = require("../db");
 const app = express();
 const router = express.Router();
-const bcrypt = require("bcrypt");
 const { authenticate } = require("../seed");
 const { createUserAndGenerateToken } = require("../seed");
 app.use(express.json());
