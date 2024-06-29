@@ -23,4 +23,20 @@ router.post('/', authenticate, async (req, res) => {
     }
   });
   
+
+  router.get('/', authenticate, async (req, res) =>{
+    const userId = req.user.id
+
+    try {
+        const result = await pool.query("SELECT * FROM cart WHERE user_id = $1", [userId]);
+        res.json(result.row)
+    } catch(err) {
+        console.error("Error fetching cart items", err);
+        res.status(500).json({ message: "Internal server error"})
+
+    }
+
+
+  })
+  
   module.exports = router;
