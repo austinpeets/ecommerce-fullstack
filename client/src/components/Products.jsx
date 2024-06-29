@@ -18,13 +18,13 @@ const Products = () => {
   return (
     <div>
       <h2>VitalVibes</h2>
-      <h2>All Products</h2>
+      <h3>All Products</h3>
       <ul className="productList">
         {products.map((product) => (
           <li key={product.id}>
-            <Link to={`/singleproduct/${product.id}`}>
+            <Link to={`/products/${product.id}`}>
               <h4 className="productName">{product.name}</h4>
-              <img src={product.img}/>
+              <img src={product.img} />
             </Link>
           </li>
         ))}

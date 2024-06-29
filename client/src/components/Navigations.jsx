@@ -118,7 +118,7 @@ function Navigations() {
         {/* <Link to={"/account"}>Account</Link>
             Make visible only after logged in */}
         {/* <br /> */}
-        <Link to="/products">Products</Link>
+        <Link to={"/products"}>Products</Link>
       </div>
     </div>
   );
