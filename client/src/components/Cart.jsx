@@ -45,11 +45,11 @@ const Cart = () => {
 
   return (
     <div>
-      <h1>Your Cart</h1>
+      <h2>Your Cart</h2>
       <ul>
         {cartItems.map(item => (
           <li key={item.id}>
-            <p>{item.product_name}</p>
+            <p>{item.id}</p>
             <p>Quantity: {item.quantity}</p>
             <p>Price: ${item.price}</p>
           </li>

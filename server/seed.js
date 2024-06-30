@@ -189,7 +189,7 @@ const addItemToCart = async (userId, productId, quantity = 1) => {
   const query = `
     INSERT INTO cart_items (user_id, products_id, quantity)
     VALUES ($1, $2, $3)
-    ON CONFLICT ON CONSTRAINT unique_user_id_and_product_id DO UPDATE
+    ON CONFLICT ON CONSTRAINT unique_user_id_and_products_id DO UPDATE
     SET quantity = cart_items.quantity + EXCLUDED.quantity
     RETURNING *;
   `;
