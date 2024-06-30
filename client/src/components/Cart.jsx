@@ -15,8 +15,10 @@ const Cart = () => {
           // User is authenticated, get items from server
       try {
         const response = await fetch('http://localhost:8000/api/cart', {
-          headers: {
-            Authorization: `Bearer ${token}`, 
+            method: "GET",
+            headers: {
+              "Content-type":"application/json",
+              Authorization: `Bearer ${token}`, 
           },
         });
         
@@ -25,6 +27,7 @@ const Cart = () => {
         }
 
         const data = await response.json();
+        console.log(data)
         setCartItems(data);
       } catch (err) {
         setError(err.message || 'Error fetching cart items');
@@ -49,7 +52,8 @@ const Cart = () => {
       <ul>
         {cartItems.map(item => (
           <li key={item.id}>
-            <p>{item.product_name}</p>
+            <p>{item.name}</p>
+            <img src={item.img} alt={item.name} style={{ width: '100px', height: '100px' }} />
             <p>Quantity: {item.quantity}</p>
             <p>Price: ${item.price}</p>
           </li>
