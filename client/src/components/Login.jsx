@@ -69,6 +69,7 @@ export default function loginForm({ setToken }) {
       });
 
       const result = await response.json();
+      localStorage.setItem('token', result.token);
       console.log(result);
       setToken(result.token);
       navigate("/api/products");

@@ -1,9 +1,19 @@
 const express = require('express')
 const router = express.Router()
-const { addItemToCart } = require('../seed'); 
-const { authenticate } = require('../seed'); 
+const { addItemToCart, findUserWithToken } = require('../seed'); 
 
-router.post('/', authenticate, async (req, res) => {
+const isLoggedIn = async(req, res, next) => {
+  try {
+    console.log('Authorization Header:', req.headers.authorization);
+    const [_, token] = req.headers.authorization.split(' ')
+    req.user = await findUserWithToken(token)
+    next()
+  } catch(ex) {
+    next(ex)
+  }
+}
+
+router.post('/', isLoggedIn, async (req, res) => {
     const { productId, quantity } = req.body;
     const userId = req.user.id;
   
@@ -24,7 +34,7 @@ router.post('/', authenticate, async (req, res) => {
   });
   
 
-  router.get('/', authenticate, async (req, res) =>{
+  router.get('/', isLoggedIn, async (req, res) =>{
     const userId = req.user.id
 
     try {
@@ -40,7 +50,7 @@ router.post('/', authenticate, async (req, res) => {
   })
 
 
-router.post('/merge', authenticate, async (req, res) => {
+router.post('/merge', isLoggedIn, async (req, res) => {
     const userId = req.user.id;
     const localCart = req.body;
   

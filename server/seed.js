@@ -138,7 +138,7 @@ const authenticate = async ({ email, password }) => {
   }
 
   if (!userFound || !passwordMatches) {
-    const error = Error("not authorized");
+    const error = new Error("not authorized");
     error.status = 401;
     throw error;
   }
@@ -146,6 +146,39 @@ const authenticate = async ({ email, password }) => {
   const token = jwt.sign({ id: response.rows[0].id }, JWT);
   return { token };
 };
+
+const findUserWithToken = async (token) => {
+  try {
+    if (!token) {
+      const error = new Error('Token is missing');
+      error.status = 401;
+      throw error;
+    }
+
+    // Verify the token and extract the payload
+    const payload = jwt.verify(token, JWT);
+    const id = payload.id;
+
+    // Query the database for user details
+    const SQL = `
+      SELECT id, email FROM users WHERE id = $1;
+    `;
+    const response = await pool.query(SQL, [id]);
+
+    if (!response.rows.length) {
+      const error = new Error('User not found');
+      error.status = 401;
+      throw error;
+    }
+
+    // Return the user data
+    return response.rows[0];
+  } catch (ex) {
+    console.error('Error in findUserWithToken:', ex);
+    throw ex; // Propagate the error back to the calling function
+  }
+};
+
 
 const addItemToCart = async (userId, productId, quantity = 1) => {
   const query = `
@@ -169,5 +202,6 @@ module.exports = {
   dropTables,
   authenticate,
   createUserAndGenerateToken,
-  addItemToCart
+  addItemToCart,
+  findUserWithToken
 };
