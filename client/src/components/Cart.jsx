@@ -6,6 +6,13 @@ const Cart = () => {
 
   useEffect(() => {
     const fetchCartItems = async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          // User is not authenticated, get items from local storage
+          const localCart = JSON.parse(localStorage.getItem('cart')) || [];
+          setCartItems(localCart);
+        } else {
+          // User is authenticated, get items from server
       try {
         const response = await fetch('http://localhost:8000/api/cart', {
           headers: {
@@ -22,6 +29,7 @@ const Cart = () => {
       } catch (err) {
         setError(err.message || 'Error fetching cart items');
       }
+    }
     };
 
     fetchCartItems();

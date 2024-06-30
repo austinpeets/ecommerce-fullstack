@@ -71,7 +71,7 @@ export default function loginForm({ setToken }) {
       const result = await response.json();
       console.log(result);
       setToken(result.token);
-      navigate("/product");
+      navigate("/api/products");
     } catch (error) {
       console.error(error);
       setError(error.message);
