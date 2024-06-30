@@ -1,4 +1,4 @@
-const {createTable, seedDataBase} = require('./seed');
+const {createTable, seedDataBase, dropTables} = require('./seed');
 const runSeed = async () => {
 
     try {

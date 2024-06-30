@@ -47,7 +47,8 @@ const createTable = async () => {
     products_id INTEGER NOT NULL,
     quantity INTEGER DEFAULT 1,
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (products_id) REFERENCES products(id)
+    FOREIGN KEY (products_id) REFERENCES products(id),
+    CONSTRAINT unique_user_id_and_products_id UNIQUE (user_id, products_id)
     );`;
 
   try {
@@ -163,6 +164,7 @@ const findUserWithToken = async (token) => {
     const SQL = `
       SELECT id, email FROM users WHERE id = $1;
     `;
+    console.log(SQL)
     const response = await pool.query(SQL, [id]);
 
     if (!response.rows.length) {
@@ -181,16 +183,24 @@ const findUserWithToken = async (token) => {
 
 
 const addItemToCart = async (userId, productId, quantity = 1) => {
+  const testquery = `SELECT * FROM cart_items;`
+  const testresponse = await pool.query(testquery)
+  console.log(JSON.stringify(testresponse.rows))
   const query = `
-    INSERT INTO cart_items (user_id, product_id, quantity)
+    INSERT INTO cart_items (user_id, products_id, quantity)
     VALUES ($1, $2, $3)
-    ON CONFLICT (user_id, product_id) 
-    DO UPDATE SET quantity = cart_items.quantity + EXCLUDED.quantity
+    ON CONFLICT ON CONSTRAINT unique_user_product DO UPDATE
+    SET quantity = cart_items.quantity + EXCLUDED.quantity
     RETURNING *;
   `;
-  const values = [userId, productId, quantity];
-  const result = await pool.query(query, values);
-  return result.rows[0];
+  try {
+    console.log("query", query)
+    const response = await pool.query(query, [userId, productId, quantity]);
+    return response.rows[0];
+  } catch (err) {
+    console.error('Error adding item to cart:', err);
+    throw err;
+  }
 };
 
 

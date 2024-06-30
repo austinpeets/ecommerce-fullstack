@@ -36,8 +36,9 @@ export default function SingleProduct({ token }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ productId: id }),
+        body: JSON.stringify({ userId: id, productId: id, quantity: 1}),
       });
+      console.log(response)
 
       if (!response.ok) {
         throw new Error("Failed to add product to cart");
