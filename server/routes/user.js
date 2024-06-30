@@ -38,6 +38,7 @@ router.get("/:id", async (req, res) => {
 router.post("/login", async (req, res, next) => {
   try {
     res.send(await authenticate(req.body));
+    console.log(res.send)
   } catch (err) {
     next(err);
   }

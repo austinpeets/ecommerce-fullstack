@@ -1,6 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const { addItemToCart, findUserWithToken } = require('../seed'); 
+const pool = require('../db')
+const app = express()
+
+app.use( express.json() )
+
 
 const isLoggedIn = async(req, res, next) => {
   try {
@@ -14,10 +19,13 @@ const isLoggedIn = async(req, res, next) => {
 }
 
 router.post('/', isLoggedIn, async (req, res) => {
+    console.log('Request body:', req.body)
     const { productId, quantity } = req.body;
     const userId = req.user.id;
+    console.log('Received request to add product with ID:', productId, 'and quantity:', quantity);
   
-    if (!productId || !quantity) {
+  
+    if (!productId) {
       return res.status(400).json({ message: 'Product ID and quantity are required' });
     }
   
@@ -38,8 +46,8 @@ router.post('/', isLoggedIn, async (req, res) => {
     const userId = req.user.id
 
     try {
-        const result = await pool.query("SELECT * FROM cart WHERE user_id = $1", [userId]);
-        res.json(result.row)
+        const result = await pool.query("SELECT * FROM cart_items WHERE user_id = $1", [userId]);
+        res.json(result.rows)
     } catch(err) {
         console.error("Error fetching cart items", err);
         res.status(500).json({ message: "Internal server error"})
@@ -50,41 +58,41 @@ router.post('/', isLoggedIn, async (req, res) => {
   })
 
 
-router.post('/merge', isLoggedIn, async (req, res) => {
-    const userId = req.user.id;
-    const localCart = req.body;
+// router.post('/merge', isLoggedIn, async (req, res) => {
+//     const userId = req.user.id;
+//     const localCart = req.body;
   
-    try {
-      for (const item of localCart) {
-        const { productId, quantity } = item;
+//     try {
+//       for (const item of localCart) {
+//         const { productId, quantity } = item;
   
-        // Check if the item already exists in the server-side cart
-        const result = await pool.query(
-          'SELECT * FROM cart WHERE user_id = $1 AND product_id = $2',
-          [userId, productId]
-        );
+//         // Check if the item already exists in the server-side cart
+//         const result = await pool.query(
+//           'SELECT * FROM cart WHERE user_id = $1 AND product_id = $2',
+//           [userId, productId]
+//         );
   
-        if (result.rows.length > 0) {
-          // Update quantity if item exists
-          await pool.query(
-            'UPDATE cart SET quantity = quantity + $1 WHERE user_id = $2 AND product_id = $3',
-            [quantity, userId, productId]
-          );
-        } else {
-          // Insert new item if it does not exist
-          await pool.query(
-            'INSERT INTO cart (user_id, product_id, quantity) VALUES ($1, $2, $3)',
-            [userId, productId, quantity]
-          );
-        }
-      }
+//         if (result.rows.length > 0) {
+//           // Update quantity if item exists
+//           await pool.query(
+//             'UPDATE cart SET quantity = quantity + $1 WHERE user_id = $2 AND product_id = $3',
+//             [quantity, userId, productId]
+//           );
+//         } else {
+//           // Insert new item if it does not exist
+//           await pool.query(
+//             'INSERT INTO cart (user_id, product_id, quantity) VALUES ($1, $2, $3)',
+//             [userId, productId, quantity]
+//           );
+//         }
+//       }
   
-      res.status(200).json({ message: 'Cart merged successfully' });
-    } catch (err) {
-      console.error('Error merging carts:', err);
-      res.status(500).json({ message: 'Internal server error' });
-    }
-  });
+//       res.status(200).json({ message: 'Cart merged successfully' });
+//     } catch (err) {
+//       console.error('Error merging carts:', err);
+//       res.status(500).json({ message: 'Internal server error' });
+//     }
+//   });
   
 
   module.exports = router;
