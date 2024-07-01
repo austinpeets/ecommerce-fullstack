@@ -7,8 +7,9 @@ const JWT = process.env.JWT || "shhh";
 
 const dropTables = async () => {
   const dropTableQuery = `
-    DROP TABLE IF EXISTS products;
-    DROP TABLE IF EXISTS users;
+    DROP TABLE IF EXISTS cart_items CASCADE;
+    DROP TABLE IF EXISTS products CASCADE;
+    DROP TABLE IF EXISTS users CASCADE;
   `;
   try {
     console.log("Dropping existing tables...");
@@ -80,7 +81,8 @@ const seedDataBase = async () => {
         product.img,
         product.category,
       ];
-      await pool.query(query, values);
+      const resultstest = await pool.query(query, values);
+      console.log(resultstest)
     }
 
     for (const user of users) {
@@ -93,7 +95,8 @@ const seedDataBase = async () => {
       const values = [user.name, user.lastname, user.email, user.password];
       const results = await pool.query(userquery, values);
       // console.log(results);
-      console.log("Inserted user:", results.rows[0]);
+      // console.log("Inserted user:", results.rows[0]);
+      return results.rows[0]
     }
 
     console.log("Data inserted successfully");
