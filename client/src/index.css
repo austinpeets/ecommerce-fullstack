@@ -1,3 +1,7 @@
+/* * {
+  background-image: url(background-image: url(https://static.vecteezy.com/system/resources/previews/000/570/586/non_2x/white-honeycomb-background-paper-art-pattern-vector.jpg);
+} */
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -16,20 +20,20 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #515258;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #3b71c7;
 }
 
-body {
+/* body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
+} */
 
 h1 {
   font-size: 3.2em;
@@ -48,7 +52,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #a5a5ad;
 }
 button:focus,
 button:focus-visible {
@@ -61,9 +65,67 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #898991;
   }
   button {
     background-color: #f9f9f9;
   }
+}
+
+img {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+ 
+li {
+  width: 200px;
+  border: solid rgb(179, 189, 199);
+  border-radius: 10px;
+  margin: 10px;
+  padding: 15px;
+  background: #fcfbfb;
+  box-shadow: 0 8px 8px -4px rgb(165, 180, 185);
+}
+
+li:hover {
+border: solid white
+}
+
+.singleProduct {
+  width: 250px;
+  border: solid rgb(179, 189, 199);
+  border-radius: 10px;
+  margin: 10px;
+  padding: 15px;
+  background: #fcfbfb;
+  box-shadow: 0 8px 8px -4px rgb(165, 180, 185);
+}
+
+button {
+  border: solid rgb(212, 221, 231);
+  background-color: rgb(227, 229, 230);
+}
+
+.cartQuantityBox {
+  width: 40px;
+  text-align: center;
+}
+
+#background {
+  background-image: url(https://static.vecteezy.com/system/resources/previews/000/570/586/non_2x/white-honeycomb-background-paper-art-pattern-vector.jpg);
+}
+
+h2, h3, h4 {
+  color: #515258;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-weight: lighter;
 }

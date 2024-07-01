@@ -17,14 +17,16 @@ const Products = () => {
 
   return (
     <div>
-      <h2>VitalVibes</h2>
-      <h3>All Products</h3>
+      {/* <h2>VitalVibes</h2> */}
+      <h2 className="allProducts">All Products</h2>
+      <br />
       <ul className="productList">
         {products.map((product) => (
           <li key={product.id}>
             <Link to={`/api/products/${product.id}`}>
-              <h4 className="productName">{product.name}</h4>
               <img src={product.img} />
+              <h5 className="productName">{product.name}</h5>
+              <h5 className="productPrice">${product.price}</h5>
             </Link>
           </li>
         ))}

@@ -57,19 +57,21 @@ export default function SingleProduct({ token }) {
 
   return (
     <>
-      <h1>Product Details</h1>
+      <h2>Product Details</h2>
+    <div className="singleProduct">
       {product && (
         <>
           <img src={product.img} alt={product.name} />
-          <h2>{product.name}</h2>
-          <h3>{product.price}</h3>
-          <h3>{product.category}</h3>
-          <h3>{product.stock}</h3>
+          <h4>{product.name}</h4>
+          <h5>{product.category}</h5>
+          <h5>${product.price}</h5>
+          {/* <h3>{product.stock}</h3> */}
           <p>{product.description}</p>
           <button onClick={handleAddToCart}>Add to Cart</button>
           {message && <p>{message}</p>} {/* Display success message */}
         </>
       )}
+      </div>
     </>
   );
 }

@@ -94,22 +94,23 @@ const Cart = () => {
             <img
               src={item.img}
               alt={item.name}
-              style={{ width: "100px", height: "100px" }}
+              // style={{ width: "100px", height: "100px" }}
             />
-            <p>Quantity: {item.quantity}</p>
-            <p>Price: ${item.price}</p>
-            <button onClick={() => handleDelete(item.product_id)}>
-              Delete
-            </button>
-            <br></br>
-            <input
+            <p>${item.price}</p>
+            <div>Quantity:</div>
+            {/* <p>Quantity: {item.quantity}</p> */}
+            <input className="cartQuantityBox"
               type="number"
+              placeholder="Quantity"
               value={item.quantity}
               onChange={(e) =>
                 handleQuantityChange(item.product_id, parseInt(e.target.value))
               }
               min="1"
             />
+            <p><button onClick={() => handleDelete(item.product_id)}>
+              Delete
+            </button></p>
           </li>
         ))}
       </ul>
