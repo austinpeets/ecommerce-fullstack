@@ -46,7 +46,14 @@ router.post('/', isLoggedIn, async (req, res) => {
     const userId = req.user.id
 
     try {
-        const result = await pool.query("SELECT * FROM cart_items WHERE user_id = $1", [userId]);
+        const query = `
+      SELECT cart_items.id, products.name, cart_items.quantity, products.price, products.img
+      FROM cart_items
+      JOIN products ON cart_items.products_id = products.id
+      WHERE cart_items.user_id = $1;
+    `;
+        const values = [userId];
+        const result = await pool.query(query, values);
         res.json(result.rows)
     } catch(err) {
         console.error("Error fetching cart items", err);
