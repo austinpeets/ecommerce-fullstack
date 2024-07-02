@@ -28,7 +28,7 @@ export default function SingleProduct({ token }) {
 
   const handleAddToCart = async () => {
     const token = localStorage.getItem("token");
-    console.log('Token:', token);
+    console.log("Token:", token);
     try {
       const response = await fetch("http://localhost:8000/api/cart", {
         method: "POST",
@@ -36,9 +36,9 @@ export default function SingleProduct({ token }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ userId: id, productId: id, quantity: 1}),
+        body: JSON.stringify({ userId: id, productId: id, quantity: 1 }),
       });
-      console.log(response)
+      console.log(response);
 
       if (!response.ok) {
         throw new Error("Failed to add product to cart");
@@ -58,19 +58,19 @@ export default function SingleProduct({ token }) {
   return (
     <>
       <h2>Product Details</h2>
-    <div className="singleProduct">
-      {product && (
-        <>
-          <img src={product.img} alt={product.name} />
-          <h4>{product.name}</h4>
-          <h5>{product.category}</h5>
-          <h5>${product.price}</h5>
-          {/* <h3>{product.stock}</h3> */}
-          <p>{product.description}</p>
-          <button onClick={handleAddToCart}>Add to Cart</button>
-          {message && <p>{message}</p>} {/* Display success message */}
-        </>
-      )}
+      <div className="singleProduct">
+        {product && (
+          <>
+            <img src={product.img} alt={product.name} />
+            <h4>{product.name}</h4>
+            <h5>{product.category}</h5>
+            <h5>${product.price}</h5>
+            {/* <h3>{product.stock}</h3> */}
+            <p>{product.description}</p>
+            <button onClick={handleAddToCart}>Add to Cart</button>
+            {message && <p>{message}</p>} {/* Display success message */}
+          </>
+        )}
       </div>
     </>
   );

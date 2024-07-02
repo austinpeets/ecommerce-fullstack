@@ -69,7 +69,7 @@ export default function loginForm({ setToken }) {
       });
 
       const result = await response.json();
-      localStorage.setItem('token', result.token);
+      localStorage.setItem("token", result.token);
       console.log(result);
       setToken(result.token);
       navigate("/api/products");
@@ -88,7 +88,9 @@ export default function loginForm({ setToken }) {
             marginTop: 8,
             display: "flex",
             flexDirection: "column",
+            flexWrap: "wrap",
             alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>

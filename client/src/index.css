@@ -15,7 +15,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'poppins';
+  font-family: "poppins";
 }
 
 a {
@@ -85,7 +85,7 @@ ul {
   flex-wrap: wrap;
   list-style-type: none;
 }
- 
+
 li {
   width: 200px;
   border: solid rgb(179, 189, 199);
@@ -97,7 +97,7 @@ li {
 }
 
 li:hover {
-border: solid white
+  border: solid white;
 }
 
 .singleProduct {
@@ -120,12 +120,23 @@ button {
   text-align: center;
 }
 
-#background {
+/* #background {
   background-image: url(https://static.vecteezy.com/system/resources/previews/000/570/586/non_2x/white-honeycomb-background-paper-art-pattern-vector.jpg);
+} */
+
+h2,
+h3,
+h4 {
+  color: #515258;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: lighter;
 }
 
-h2, h3, h4 {
-  color: #515258;
-  font-family:Georgia, 'Times New Roman', Times, serif;
-  font-weight: lighter;
+.VVlogo {
+  width: 400px;
+  object-fit: cover;
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
