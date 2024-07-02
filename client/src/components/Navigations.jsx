@@ -35,12 +35,14 @@ function DrawerAppBar(props) {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <Link to={`/api/${item.toLowerCase()}`}>
-            <ListItem key={item} disablePadding>
-              <ListItemButton sx={{ textAlign: "center" }}>
-                <ListItemText primary={item} />
-              </ListItemButton>
-            </ListItem>
+
+          <Link to={`/${item.toLowerCase()}`}>
+          <ListItem key={item} disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary={item} />
+            </ListItemButton>
+          </ListItem>
+
           </Link>
         ))}
       </List>
@@ -73,10 +75,12 @@ function DrawerAppBar(props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Link to={`/api/${item.toLowerCase()}`}>
-                <Button key={item} sx={{ color: "#fff" }}>
-                  {item}
-                </Button>
+
+              <Link to={`/${item.toLowerCase()}`}>
+              <Button key={item} sx={{ color: '#fff' }}>
+                {item}
+              </Button>
+
               </Link>
             ))}
           </Box>
@@ -157,16 +161,16 @@ function Navigations() {
   return (
     <div id="container">
       <div id="navigations">
-        <Link to={"/api/login"}>Login</Link>
+        <Link to={"/login"}>Login</Link>
         <br />
-        <Link to={"/api/register"}>Register</Link>
+        <Link to={"/register"}>Register</Link>
         <br />
         {/* <Link to={"/account"}>Account</Link>
             Make visible only after logged in */}
         {/* <br /> */}
-        <Link to={"/api/products"}>Products</Link>
+        <Link to={"/products"}>Products</Link>
         <br />
-        <Link to={"/api/cart"}>Cart</Link>
+        <Link to={"/cart"}>Cart</Link>
       </div>
     </div>
   );

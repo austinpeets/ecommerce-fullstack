@@ -46,7 +46,7 @@ export default function Register({ setToken }) {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/api/user/register", {
+      const response = await fetch("/api/user/register", {
         method: "POST",
         headers: {
           Accept: "application/json",

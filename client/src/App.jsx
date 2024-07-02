@@ -45,12 +45,14 @@ function DrawerAppBar(props) {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <Link to={`/api/${item.toLowerCase()}`}>
-            <ListItem key={item} disablePadding>
-              <ListItemButton sx={{ textAlign: "center" }}>
-                <ListItemText primary={item} />
-              </ListItemButton>
-            </ListItem>
+
+          <Link to={`/${item.toLowerCase()}`}>
+          <ListItem key={item} disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }}>
+              <ListItemText primary={item} />
+            </ListItemButton>
+          </ListItem>
+
           </Link>
         ))}
       </List>
@@ -83,10 +85,10 @@ function DrawerAppBar(props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Link to={`/api/${item.toLowerCase()}`}>
-                <Button key={item} sx={{ color: "#fff" }}>
-                  {item}
-                </Button>
+              <Link to={`/${item.toLowerCase()}`}>
+              <Button key={item} sx={{ color: '#fff' }}>
+                {item}
+              </Button>
               </Link>
             ))}
           </Box>
@@ -113,6 +115,7 @@ function DrawerAppBar(props) {
         </Drawer>
       </nav>
       <div id="background">
+
         <Box component="main" sx={{ p: 3 }}>
           <Toolbar />
           <Typography>
