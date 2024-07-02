@@ -12,7 +12,7 @@ export default function SingleProduct({ token }) {
     async function singleProductDetails() {
       try {
         const response = await fetch(
-          `http://localhost:8000/api/products/${id}`
+          `/api/products/${id}`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -30,7 +30,7 @@ export default function SingleProduct({ token }) {
     const token = localStorage.getItem("token");
     console.log('Token:', token);
     try {
-      const response = await fetch("http://localhost:8000/api/cart", {
+      const response = await fetch("/api/cart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

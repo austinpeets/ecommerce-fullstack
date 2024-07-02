@@ -3,20 +3,38 @@ const router = express.Router();
 const { addItemToCart, findUserWithToken } = require("../seed");
 const pool = require("../db");
 const app = express();
+const jwt = require('jsonwebtoken')
+const JWT = process.env.JWT || "shhh";
 
 app.use(express.json());
 
 const isLoggedIn = async (req, res, next) => {
-  try {
-    console.log("Authorization Header:", req.headers.authorization);
-    const [_, token] = req.headers.authorization.split(" ");
-    req.user = await findUserWithToken(token);
-    next();
-  } catch (ex) {
-    next(ex);
-  }
-};
-
+    try {
+      const authHeader = req.headers.authorization;
+  
+      if (!authHeader) {
+        return res.status(401).json({ message: 'Authorization header is missing' });
+      }
+  
+      const [bearer, token] = authHeader.split(' ');
+  
+      if (bearer !== 'Bearer' || !token) {
+        return res.status(401).json({ message: 'Invalid authorization format' });
+      }
+  
+      req.user = await findUserWithToken(token);
+  
+      if (!req.user) {
+        return res.status(401).json({ message: 'User not found' });
+      }
+  
+      next();
+    } catch (err) {
+      console.error('Authorization error:', err);
+      res.status(401).json({ message: 'Unauthorized', error: err.message });
+    }
+  };
+  
 router.post("/", isLoggedIn, async (req, res) => {
   console.log("Request body:", req.body);
   const { productId, quantity } = req.body;
@@ -65,18 +83,25 @@ router.get("/", isLoggedIn, async (req, res) => {
   }
 });
 
-router.delete("/:productId", isLoggedIn, async (req, res) => {
+router.delete("/:productId", isLoggedIn, async (req, res, next) => {
+    console.log("Hello its me you're looking for, I CAN SEE IT IN YOU EYES")
   const { productId } = req.params;
   const userId = req.user.id;
-
+    
   try {
-    await pool.query(
-      "DELETE FROM cart_items WHERE user_id = $1 AND product_id = $2",
+   const results =  await pool.query(
+      "DELETE FROM cart_items WHERE user_id = $1 AND id = $2",
       [userId, productId]
     );
+    
+    if(results.rowCount === 0) {
+        res.status(404).json({ message: "Item not found"});
+    }
     res.status(200).json({ message: "Item deleted from cart" });
-  } catch (err) {
-    res.status(500).json({ message: "Internal server error" });
+  } catch (ex) {
+    next(ex)
+    
+
   }
 });
 

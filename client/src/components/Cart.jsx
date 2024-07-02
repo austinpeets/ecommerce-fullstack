@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+// import { addItemToCart } from "../../../server/seed";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -14,7 +15,7 @@ const Cart = () => {
       } else {
         // User is authenticated, get items from server
         try {
-          const response = await fetch("http://localhost:8000/api/cart", {
+          const response = await fetch("/api/cart", {
             method: "GET",
             headers: {
               "Content-type": "application/json",
@@ -40,15 +41,19 @@ const Cart = () => {
 
   //   delete item from cart
   const handleDelete = async (productId) => {
+    console.log("Product to delete", productId)
+    const token = localStorage.getItem("token")
     try {
       await fetch(`/api/cart/${productId}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
-      setCartItems(cartItems.filter((item) => item.product_id !== productId));
+      console.log('Previous Item', cartItems);
+      console.log('Product ID to remove', productId)
+      setCartItems((cartItems) => cartItems.filter((item) => item.id !== productId));
     } catch (err) {
       setError(err.message);
     }
@@ -67,7 +72,7 @@ const Cart = () => {
       });
       setCartItems(
         cartItems.map((item) =>
-          item.product_id === productId
+          item.id === productId
             ? { ...item, quantity: newQuantity }
             : item
         )
@@ -104,12 +109,12 @@ const Cart = () => {
               placeholder="Quantity"
               value={item.quantity}
               onChange={(e) =>
-                handleQuantityChange(item.product_id, parseInt(e.target.value))
+                handleQuantityChange(item.id, parseInt(e.target.value))
               }
               min="1"
             />
-            <p><button onClick={() => handleDelete(item.product_id)}>
-              Delete
+            <p><button onClick={() => handleDelete(item.id)}>
+              Deleteteteteteteteteetetete
             </button></p>
           </li>
         ))}

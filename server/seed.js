@@ -167,9 +167,7 @@ const findUserWithToken = async (token) => {
     const SQL = `
       SELECT id, email FROM users WHERE id = $1;
     `;
-    console.log(SQL)
     const response = await pool.query(SQL, [id]);
-
     if (!response.rows.length) {
       const error = new Error('User not found');
       error.status = 401;

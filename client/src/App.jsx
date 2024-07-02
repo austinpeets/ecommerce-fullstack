@@ -44,7 +44,7 @@ function DrawerAppBar(props) {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <Link to={`/api/${item.toLowerCase()}`}>
+          <Link to={`/${item.toLowerCase()}`}>
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
               <ListItemText primary={item} />
@@ -81,7 +81,7 @@ function DrawerAppBar(props) {
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
-              <Link to={`/api/${item.toLowerCase()}`}>
+              <Link to={`/${item.toLowerCase()}`}>
               <Button key={item} sx={{ color: '#fff' }}>
                 {item}
               </Button>
@@ -114,11 +114,11 @@ function DrawerAppBar(props) {
           <div id="main-section">
             <Routes>
               {/* <Route path="/home" element={<Home />}></Route> */}
-              <Route path="/api/products/:id"element={<SingleProduct />}></Route> 
-              <Route path="/api/products" element={<Products />}></Route>
-              <Route path="/api/login" element={<Login setToken={setToken} />}></Route>
-              <Route path="/api/register" element={<Register setToken={setToken}/>}></Route>
-              <Route path="/api/cart" element={<Cart setToken={setToken}/>}></Route>
+              <Route path="/products/:id"element={<SingleProduct />}></Route> 
+              <Route path="/products" element={<Products />}></Route>
+              <Route path="/login" element={<Login setToken={setToken} />}></Route>
+              <Route path="/register" element={<Register setToken={setToken}/>}></Route>
+              <Route path="/cart" element={<Cart setToken={setToken}/>}></Route>
             </Routes>
           </div>
         </Typography>
