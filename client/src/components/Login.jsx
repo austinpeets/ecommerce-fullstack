@@ -72,7 +72,7 @@ export default function loginForm({ setToken }) {
       localStorage.setItem("token", result.token);
       console.log(result);
       setToken(result.token);
-      navigate("/api/products");
+      navigate("/products");
     } catch (error) {
       console.error(error);
       setError(error.message);
