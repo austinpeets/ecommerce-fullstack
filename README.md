@@ -13,7 +13,6 @@ VitalVibes is an e-commerce platform developed using modern web technologies. Th
 - [Running the Application](#running-the-application)
 - [Seeding the Database](#seeding-the-database)
 - [API Endpoints](#api-endpoints)
-- [File Structure](#file-structure)
 - [Environment Variables](#environment-variables)
 - [Contributing](#contributing)
 - [License](#license)
