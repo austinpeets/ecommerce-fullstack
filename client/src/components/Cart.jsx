@@ -15,7 +15,7 @@ const Cart = () => {
       } else {
         // User is authenticated, get items from server
         try {
-          const response = await fetch("/api/cart", {
+          const response = await fetch("https://ecommerce-fullstack-3e0l.onrender.com/api/cart", {
             method: "GET",
             headers: {
               "Content-type": "application/json",
@@ -44,7 +44,7 @@ const Cart = () => {
     console.log("Product to delete", productId)
     const token = localStorage.getItem("token")
     try {
-      await fetch(`/api/cart/${productId}`, {
+      await fetch(`https://ecommerce-fullstack-3e0l.onrender.com/api/cart/${productId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -62,7 +62,7 @@ const Cart = () => {
   // change quantity of items in cart
   const handleQuantityChange = async (productId, newQuantity) => {
     try {
-      await fetch(`/api/cart/${productId}`, {
+      await fetch(`https://ecommerce-fullstack-3e0l.onrender.com/api/cart/${productId}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

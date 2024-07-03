@@ -2,12 +2,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+const baseurl = 'https://ecommerce-fullstack-3e0l.onrender.com'
+
 const Products = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     async function fetchAllProducts() {
-      const response = await fetch("/api/products");
+      const response = await fetch(`${baseurl}/api/products`);
       const data = await response.json();
       console.log(data);
       setProducts(data);
