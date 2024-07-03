@@ -1,4 +1,4 @@
-Here's a structured README for your GitHub repository:
+
 
 ---
 
@@ -93,30 +93,7 @@ Ensure the `RUN_SEED` environment variable is set to `true` in your `.env` file.
 - **POST /api/cart** - Add an item to the cart
 - **POST /api/cart/merge** - Merge local storage cart with user cart
 
-## File Structure
 
-```
-ecommerce-fullstack/
-├── client/                   # Frontend
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── ...
-│   ├── index.html
-│   └── ...
-├── server/                   # Backend
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── seed/
-│   ├── index.js
-│   └── ...
-├── .env
-└── ...
-```
 
 ## Environment Variables
 
@@ -140,4 +117,3 @@ This project is licensed under the MIT License.
 
 ---
 
-This README template should provide a clear and organized view of your project for users and contributors.
