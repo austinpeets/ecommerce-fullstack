@@ -2,7 +2,7 @@ const {createTable, seedDataBase, dropTables} = require('./seed');
 const runSeed = async () => {
 
     try {
-      await dropTables();
+      // await dropTables();
       await createTable();
       await seedDataBase();
     } catch (err) {
