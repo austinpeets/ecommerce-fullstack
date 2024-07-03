@@ -12,7 +12,7 @@ export default function SingleProduct({ token }) {
     async function singleProductDetails() {
       try {
         const response = await fetch(
-          `/api/products/${id}`
+          `https://ecommerce-fullstack-3e0l.onrender.com/api/products/${id}`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -30,7 +30,7 @@ export default function SingleProduct({ token }) {
     const token = localStorage.getItem("token");
     console.log("Token:", token);
     try {
-      const response = await fetch("/api/cart", {
+      const response = await fetch("https://ecommerce-fullstack-3e0l.onrender.com/api/cart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

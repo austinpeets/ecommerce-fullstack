@@ -59,7 +59,7 @@ export default function loginForm({ setToken }) {
     const loginForm = { email, password };
 
     try {
-      const response = await fetch("/api/user/login", {
+      const response = await fetch("https://ecommerce-fullstack-3e0l.onrender.com/api/user/login", {
         method: "POST",
         headers: {
           Accept: "application/json",
