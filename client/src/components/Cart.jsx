@@ -114,7 +114,7 @@ const Cart = () => {
               min="1"
             />
             <p><button onClick={() => handleDelete(item.id)}>
-              Deleteteteteteteteteetetete
+              Delete
             </button></p>
           </li>
         ))}

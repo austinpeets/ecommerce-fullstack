@@ -123,20 +123,20 @@ function DrawerAppBar(props) {
               <Routes>
                 <Route path="/" element={<Landing />}></Route>
                 <Route
-                  path="/api/products/:id"
+                  path="/products/:id"
                   element={<SingleProduct />}
                 ></Route>
-                <Route path="/api/products" element={<Products />}></Route>
+                <Route path="/products" element={<Products />}></Route>
                 <Route
-                  path="/api/login"
+                  path="/login"
                   element={<Login setToken={setToken} />}
                 ></Route>
                 <Route
-                  path="/api/register"
+                  path="/register"
                   element={<Register setToken={setToken} />}
                 ></Route>
                 <Route
-                  path="/api/cart"
+                  path="/cart"
                   element={<Cart setToken={setToken} />}
                 ></Route>
               </Routes>
