@@ -2,13 +2,11 @@ const { Pool } = require("pg");
 const dotenv = require("dotenv")
 
 dotenv.config()
-
+const connectionString = process.env.DATABASE_URL || 'https://localhost:5432/ecommerce';
 const pool = new Pool({
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
+connectionString
 });
-console.log('databasename',process.env.DB_NAME)
+
 
 
 module.exports = pool;
