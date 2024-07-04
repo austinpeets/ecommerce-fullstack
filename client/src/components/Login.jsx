@@ -59,24 +59,26 @@ export default function loginForm({ setToken }) {
     const loginForm = { email, password };
 
     try {
-      const response = await fetch("https://ecommerce-fullstack-3e0l.onrender.com/api/user/login", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginForm),
-      });
+      const response = await fetch(
+        "https://ecommerce-fullstack-3e0l.onrender.com/api/user/login",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loginForm),
+        }
+      );
 
-      const result = await response.json();
-      localStorage.setItem("token", result.token);
-      setToken(result.token);
-      if(!result){
-        alert("Wrong username or password")
+      if (response.ok && result.token) {
+        localStorage.setItem("token", result.token);
+        setToken(result.token);
+        alert("You've successfully logged in");
+        navigate("/products");
       } else {
-      alert("You've successfully logged in")
+        alert("Wrong username or password");
       }
-      navigate("/products");
     } catch (error) {
       console.error(error);
       setError(error.message);
