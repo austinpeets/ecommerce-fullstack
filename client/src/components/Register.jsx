@@ -62,8 +62,8 @@ export default function Register({ setToken }) {
       console.log("sending request");
       const result = await response.json();
       setToken(result.token);
-      console.log(setToken);
-      redirect("/login");
+      prompt("You've successfully registered!")
+      navigate("/login");
       console.log("request send successfully");
     } catch (error) {
       console.log(error);
