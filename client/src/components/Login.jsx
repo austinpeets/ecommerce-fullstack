@@ -70,8 +70,12 @@ export default function loginForm({ setToken }) {
 
       const result = await response.json();
       localStorage.setItem("token", result.token);
-      prompt("You've successfully logged in")
       setToken(result.token);
+      if(!result){
+        alert("Wrong username or password")
+      } else {
+      alert("You've successfully logged in")
+      }
       navigate("/products");
     } catch (error) {
       console.error(error);

@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -41,28 +41,32 @@ export default function Register({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate()
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://ecommerce-fullstack-3e0l.onrender.com/api/user/register", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          lastname: lastname,
-          email: email,
-          password: password,
-        }),
-      });
+      const response = await fetch(
+        "https://ecommerce-fullstack-3e0l.onrender.com/api/user/register",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            lastname: lastname,
+            email: email,
+            password: password,
+          }),
+        }
+      );
       console.log("sending request");
       const result = await response.json();
+      alert("You've successfully registered!");
       setToken(result.token);
-      prompt("You've successfully registered!")
       navigate("/login");
       console.log("request send successfully");
     } catch (error) {
